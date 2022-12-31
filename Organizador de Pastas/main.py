@@ -4,7 +4,7 @@ import shutil
 
 SETTINGS_FILE_PATH = "config.txt"
 
-class DirectoryOrganizer:
+class FolderOrganizer:
     def __init__(self, path_settings):
         self.dir_from = ""
         self.dir_to =   ""
@@ -47,7 +47,7 @@ class DirectoryOrganizer:
         
 if __name__ == "__main__":
 
-    organizer = DirectoryOrganizer(SETTINGS_FILE_PATH)
+    organizer = FolderOrganizer(SETTINGS_FILE_PATH)
     organizer.move()
 
     report = open("report.txt", "w")
