@@ -1,0 +1,14 @@
+File origin: C:\Users\Yousoro\Desktop\fromgay
+File destiny: C:\Users\Yousoro\Desktop\togay
+File extensions: ['.txt', '.jpg', '.png', '.mp4']
+Total files moved: 8
+
+Files moved:
+	File moved:		1_1_1_teste.txt
+	File moved:		1_1_teste.txt
+	File moved:		1_2_teste.txt
+	File moved:		1_teste.txt
+	File moved:		2_1_teste.txt
+	File moved:		2_teste.txt
+	File moved:		3_teste.txt
+	File moved:		teste.txt

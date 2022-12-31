@@ -1,0 +1,7 @@
+-dir_from           : "C:\Users\Yousoro\Desktop\fromgay"
+-dir_to             : "C:\Users\Yousoro\Desktop\togay"
+
+-file_extensions    : [".txt",
+                       ".jpg",
+                       ".png", 
+                       ".mp4"]
