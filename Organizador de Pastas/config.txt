@@ -1,5 +1,5 @@
--dir_from           : "C:\Users\Yousoro\Desktop\fromgay"
--dir_to             : "C:\Users\Yousoro\Desktop\togay"
+-dir_from           : "C:\Users\Yousoro\Desktop\from"
+-dir_to             : "C:\Users\Yousoro\Desktop\to"
 
 -file_extensions    : [".txt",
                        ".jpg",
