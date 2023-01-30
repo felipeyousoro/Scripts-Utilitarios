@@ -1,7 +1,7 @@
--dir_from           : "C:\Users\Yousoro\Desktop\from"
--dir_to             : "C:\Users\Yousoro\Desktop\to"
+-dir_from           : "C:\Users\Yousoro\Downloads"
+-dir_to             : "C:\Users\Yousoro\Desktop\tmp"
 
--file_extensions    : [".txt",
-                       ".jpg",
+-file_extensions    : [".jpg",
                        ".png", 
-                       ".mp4"]
+                       ".jpeg",
+                       ".webp"]
