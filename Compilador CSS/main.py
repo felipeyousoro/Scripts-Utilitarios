@@ -1,9 +1,12 @@
+import os
+
+
 class CSSCompiler:
 
     def __init__(self):
         self.classes = []
 
-    def add_class(self, class_name):
+    def addClass(self, class_name):
         for c in self.classes:
             if c.name == class_name:
                 return c
@@ -15,43 +18,56 @@ class CSSCompiler:
     def parse_file(self, file):
         for line in file:
             line = line.strip()
-            if line.startswith("."):
-                class_name = line.split(".", 1)[1].split("{")[0]
-                css_class = self.add_class(class_name)
-
+            # get anything before {
+            if "{" in line:
+                class_name = line.split("{")[0].strip()
+                css_class = self.addClass(class_name)
                 while True:
                     line = file.readline()
                     line = line.strip()
                     if line == "}":
                         break
-                    css_class.add_property(line)
+                    css_class.addProperty(line)
 
-    def write_file(self, file):
+    def writeFile(self, file):
         self.classes.sort(key=lambda x: x.name)
         for css_class in self.classes:
             css_class.properties.sort()
-            file.write("." + css_class.name + "{\n")
+            file.write(css_class.name + "{\n")
             for property in css_class.properties:
                 file.write("\t" + property + "\n")
             file.write("}\n")
-
     class CSSClass:
 
         def __init__(self, name):
             self.name = name
             self.properties = []
 
-        def add_property(self, property):
+        def addProperty(self, property):
             if property not in self.properties:
                 self.properties.append(property)
 
 
+def findCSSFiles(path):
+    css_files = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if file.endswith(".css"):
+                css_files.append(os.path.join(root, file))
+    return css_files
+
+
 if __name__ == "__main__":
-    arquivo1 = open("arquivo1.css", "r")
-    arquivo2 = open("arquivo2.css", "r")
+    folder_path = "C:/Users/Yousoro/Desktop/Projeto-FA/Projeto/public/css"
+    css_files = findCSSFiles(folder_path)
+    for file in css_files:
+        if file.endswith("app.css"):
+            css_files.pop(css_files.index(file))
+            break
 
-    compilador = CSSCompiler()
-    compilador.parse_file(arquivo1)
-    compilador.parse_file(arquivo2)
-    compilador.write_file(open("arquivo1_compilado.css", "w"))
+    compiler = CSSCompiler()
+    for file in css_files:
+        with open(file, "r") as f:
+            compiler.parse_file(f)
 
+    compiler.writeFile(open("arquivo_compilado.css", "w"))
