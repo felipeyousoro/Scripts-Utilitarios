@@ -1,0 +1,19 @@
+.ababa {
+ background: red;
+}
+
+.ababa.ababa {
+ background: blue;
+}
+
+.testando123.left {
+    justify-content: right;
+}
+
+.asdasdwq {
+    background: green;
+}
+
+.testando123 {
+    justify-content: center;
+}
