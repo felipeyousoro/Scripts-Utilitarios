@@ -2,12 +2,13 @@ import re
 import os
 import shutil
 
-SETTINGS_FILE_PATH = "config.txt"
+SETTINGS_FILE_PATH = os.path.join(os.path.dirname(__file__), "config.txt")
+
 
 class FolderOrganizer:
     def __init__(self, path_settings):
         self.dir_from = ""
-        self.dir_to =   ""
+        self.dir_to = ""
         self.file_extensions = []
         self.moved_files = []
 
@@ -24,14 +25,14 @@ class FolderOrganizer:
             extensions_list = re.findall("[\"][^\"]*[\"]", extensions_list)
             for ext in extensions_list:
                 self.file_extensions.append(ext.strip("\""))
-           
+
     def move(self):
         unprocessed_files = os.listdir(self.dir_from)
-        
+
         moving_files = []
         for f in unprocessed_files:
             for ext in self.file_extensions:
-                if(f.endswith(ext)):
+                if (f.endswith(ext)):
                     moving_files.append(f)
                     break
 
@@ -44,7 +45,8 @@ class FolderOrganizer:
 
             shutil.move(f"{self.dir_from}/{f}", f"{self.dir_to}/{destiny_file_name}")
             self.moved_files.append(f)
-        
+
+
 if __name__ == "__main__":
 
     organizer = FolderOrganizer(SETTINGS_FILE_PATH)
