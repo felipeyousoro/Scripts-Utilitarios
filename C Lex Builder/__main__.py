@@ -12,4 +12,3 @@ if __name__ == '__main__':
     for line in file:
         regex = " ".join(line.split(" ")[:-1])
         token = line.split(" ")[-1].strip("\n").strip("\t")
-        print(regex, token)
