@@ -1,7 +1,0 @@
-LOAD
-    FIELD_1,
-    FIELD_2,
-    FIELD_3,
-    FIELD_4,
-FROM [FILE.qvd]
-(qvd);
