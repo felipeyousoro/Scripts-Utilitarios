@@ -13,22 +13,28 @@ class RegexParser:
     def set_regex(self, regex: str) -> None:
         self.regex_lexer.set_regex(regex)
 
-    def get_next_group(self) -> str:
+    # Format is the token string and the post token value
+    # 0 nothing
+    # 1 plus
+    # 2 star
+    # 3 question
+    def get_next_group(self) -> [str, str]:
         group: str = ''
+        post_token: str = ''
 
         # Char
         if self.tokens[self.current_index][0] == 1:
             group += self.tokens[self.current_index][1]
             self.current_index += 1
 
-            group += self.eat_post_token()
+            post_token = self.eat_post_token()
 
         # Backslash
         elif self.tokens[self.current_index][0] == 3:
             group += self.tokens[self.current_index][1]
             self.current_index += 1
 
-            group += self.eat_post_token()
+            post_token = self.eat_post_token()
 
         # # Caret
         # elif self.tokens[self.current_index][0] == 5:
@@ -46,62 +52,72 @@ class RegexParser:
             group += self.tokens[self.current_index][1]
             self.current_index += 1
 
-            group += self.eat_post_token()
+            post_token = self.eat_post_token()
 
         # Left parenthesis
         elif self.tokens[self.current_index][0] == 9:
             group += self.tokens[self.current_index][1]
             self.current_index += 1
             while self.tokens[self.current_index][0] != 10:
-                group += self.get_next_group()
+                next_group = self.get_next_group()
+                group += next_group[0] + next_group[1]
 
             group += self.tokens[self.current_index][1]
             self.current_index += 1
 
-            group += self.eat_post_token()
+            post_token = self.eat_post_token()
 
         # Dot
         elif self.tokens[self.current_index][0] == 14:
             group += self.tokens[self.current_index][1]
             self.current_index += 1
 
-            group += self.eat_post_token()
+            post_token = self.eat_post_token()
 
         # # Left curly brack
         # elif self.tokens[self.current_index][0] == 19:
 
-        return group
+        return [group, post_token]
 
     def eat_post_token(self) -> str:
-        post: str = ''
 
         if self.current_index >= len(self.tokens):
-            return post
-
-        # Star
-        if self.tokens[self.current_index][0] == 13:
-            post += self.tokens[self.current_index][1]
-            self.current_index += 1
+            return ''
 
         # Plus
-        elif self.tokens[self.current_index][0] == 12:
-            post += self.tokens[self.current_index][1]
+        if self.tokens[self.current_index][0] == 12:
             self.current_index += 1
+            return '+'
+
+        # Star
+        elif self.tokens[self.current_index][0] == 13:
+            self.current_index += 1
+            return '*'
 
         # Question
         elif self.tokens[self.current_index][0] == 11:
-            post += self.tokens[self.current_index][1]
             self.current_index += 1
+            return '?'
 
-        return post
+        return ''
 
-    def get_groups(self) -> list[str]:
+    def get_groups(self) -> list:
         self.current_index = 0
         self.tokens = self.regex_lexer.get_tokens()
 
-        groups: list[str] = []
+        groups: list = []
         while self.current_index < len(self.tokens):
             groups.append(self.get_next_group())
 
+        for i in range(len(groups)):
+            if groups[i][0][0] == '(':
+                groups[i].append(True)
+                groups[i][0] = groups[i][0][1:-1]
+                parser = RegexParser(groups[i][0])
+                groups[i][0] = parser.get_groups()
+            else:
+                groups[i].append(False)
+
         return groups
+
 
