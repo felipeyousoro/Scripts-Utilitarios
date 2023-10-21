@@ -48,12 +48,12 @@ class Automata:
         self.check_automata_deterministic()
 
     def check_automata_deterministic(self):
-        print('Checking automata determinism')
+        #print('Checking automata determinism')
         for state in self.states:
             if not state.deterministic:
-                print(f'\tState {state.name} is not deterministic, interrupting')
+                #print(f'\tAutomata is not deterministic, interrupting')
                 self.deterministic = False
                 return
-            print(f'\tState {state.name} is deterministic')
 
+        #print('\tAutomata is deterministic')
         self.deterministic = True

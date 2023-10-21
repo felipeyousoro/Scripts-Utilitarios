@@ -1,2 +1,1 @@
-[a-zA-Z0-9] ALGORITMO
-azinho AZINHO
+a[ \t\n\r]* VAZIO

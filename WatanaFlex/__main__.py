@@ -24,7 +24,6 @@ if __name__ == '__main__':
     for i in range(len(groups)):
         automaton.add_expression(groups[i], lines_list[i][1])
 
-
     # print(tables[1])
     # print(tables[2])
 
@@ -79,4 +78,3 @@ if __name__ == '__main__':
     file.write('};\n\n')
 
     file.close()
-
