@@ -1,4 +1,4 @@
-import string
+import str
 
 from .State import state as st
 
@@ -8,17 +8,9 @@ class Automata:
         self.states.append(st.State(0, False))
         self.no_states: int = 1
 
-    def add_expression(self, regex: string, token: string):
+    def add_expression(self, regex: str, token: str):
         print(regex, token)
 
-    def regex_splitter(self, regex: string) -> list[string]:
-        expressions: list[string] = []
-
-        meta_characters: dict[string, string] = {
-            '(': '(', ')': ')', '[': '[', ']': ']', '{': '{', '}': '}',
-            '*': '*', '+': '+', '?': '?', '|': '|', '.': '.', '\\': '\\',
-            '^': '^', '$': '$'
-        }
-
+    def regex_splitter(self, regex: str) -> list[str]:
         for i in range(len(regex)):
-            if regex[i] in
+            print('oi')
