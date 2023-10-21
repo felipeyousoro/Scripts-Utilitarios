@@ -1,11 +1,16 @@
 from . import expression_tables as et
+
+
 class RegexLexer:
-    def __init__(self, regex: str):
+    def __init__(self, regex: str = ''):
         self.current_index: int = 0
         self.regex: str = regex
 
     def __del__(self):
         pass
+
+    def set_regex(self, regex: str) -> None:
+        self.regex = regex
 
     def get_next_token(self) -> [int, str]:
         last_final_state: int = 0
@@ -29,9 +34,11 @@ class RegexLexer:
         token_content: str = self.regex[self.current_index: len(self.regex)]
         self.current_index = last_final_state_index + 1
 
-        return [et.TOKEN_TABLE[last_final_state], token_content]
+        return [last_final_state, token_content]
 
     def get_tokens(self) -> list[[int, str]]:
+        self.current_index = 0
+
         tokens: list[[int, str]] = []
 
         while self.current_index < len(self.regex):
