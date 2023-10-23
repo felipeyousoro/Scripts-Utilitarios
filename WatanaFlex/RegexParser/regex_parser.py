@@ -109,6 +109,15 @@ class RegexParser:
         while self.current_index < len(self.tokens):
             groups.append(self.get_next_group())
 
+        # if any group has '+', split it into two groups,
+        # one normal without the '+', and one with *
+        while any('+' in group[1] for group in groups):
+            for i in range(len(groups)):
+                if '+' in groups[i][1]:
+                    groups[i][1] = groups[i][1].replace('+', '')
+                    groups.insert(i+1, [groups[i][0], '*'])
+                    break
+
         for i in range(len(groups)):
             if groups[i][0][0] == '(':
                 groups[i].append(True)
